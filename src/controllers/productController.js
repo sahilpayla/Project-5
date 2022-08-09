@@ -44,7 +44,7 @@ const createProducts = async function (req, res) {
 
         if (!isValid(style)) { return res.status(400).send({ status: false, message: "Please Enter Valid Style" }) }
 
-        //*************************** [Prize Validation] ********************/
+        //*************************** [Price Validation] ********************/
 
         if (!isValid(price))
             return res.status(400).send({ status: false, message: "price required" });
@@ -148,8 +148,13 @@ const getProduct = async function (req, res) {
 
             //*************************** [Filtering By Name] ***********************/
 
-
             if (isValid(name)) { query['title'] = name }
+
+            // if (name) {
+            //     if (!validators.isValid(name)) 
+            //     return res.status(400).send({ status: false, message: "Please enter correct name" })
+            //     Get.title = { $regex: name, $options: 'i' }
+            // }
 
             //*************************** [Filtering By Price Greater Than] ***********************/
 
@@ -182,13 +187,13 @@ const getProduct = async function (req, res) {
             }
         }
 
-        let data = await productModel.find(query).sort({ price: -1 }); 
+        let data = await productModel.find(query).sort({ price: -1 });
 
         if (data.length == 0) {
             return res.status(400).send({ status: false, message: "NO data found" });
         }
 
-        return res.status(200).send({ status: true, message: "Success",count: data.length, data: data });
+        return res.status(200).send({ status: true, message: "Success", count: data.length, data: data });
 
 
     } catch (err) {
@@ -232,6 +237,7 @@ const updateProduct = async function (req, res) {
         let ProductId = req.params.productId
         let data = req.body
         let files = req.productImage
+        
         let { title, description, price, currencyId, currencyFormat, isFreeShipping, productImage, style, availableSizes, installments } = data
 
 

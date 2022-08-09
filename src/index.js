@@ -2,7 +2,7 @@ const express = require('express')
 const bodyparser = require('body-parser')
 const route = require('./route/route')
 const mongoose = require('mongoose')
-const multer=require("multer")
+const multer = require("multer")
 
 const app = express()
 app.use(bodyparser.json())
@@ -15,11 +15,11 @@ app.use(multer().any())
 mongoose.connect("mongodb+srv://functionup-radon-cohort:radon123@cluster0.zbsotuc.mongodb.net/group17Database?retryWrites=true&w=majority", {
     useNewUrlParser: true
 })
-    .then( () => console.log("MongoDb is connected"))
+    .then(() => console.log("MongoDb is connected"))
     .catch(err => console.log(err))
 
 
-//========================================================================================================================================
+// ============================================================================================================================
 
 app.use('/', route)
 
